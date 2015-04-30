@@ -1,0 +1,38 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:camel="http://camel.apache.org/schema/spring"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
+    
+    <!-- context:component-scan base-package="fr.estela.andromeda"/ -->
+    
+    <!-- context:property-placeholder location="classpath:application.properties"/ -->
+    
+    <bean id="bridgePropertyPlaceholder" class="org.apache.camel.spring.spi.BridgePropertyPlaceholderConfigurer">
+		<property name="location" value="classpath:application.properties"/>
+	</bean>
+    
+	<bean id="feedlyMailEnricher" class="fr.estela.andromeda.feedly.mail.FeedlyMailEnricher"/>
+    
+    <bean id="feedlyActuMailProcessor" class="fr.estela.andromeda.commons.mail.MailProcessor">
+    	<constructor-arg type="java.lang.String" value="/mail-actu.properties"/>
+    	<constructor-arg type="java.lang.String" value="RSS Actu"/>
+    	<constructor-arg type="java.lang.String" value="news.estela@gmail.com"/>
+        <constructor-arg ref="feedlyMailEnricher"/>
+    </bean>
+
+	<camel:camelContext>
+		<camel:route>
+			<camel:from uri="feedly://streams/contents?authorizationKey={{feedly.authorizationKey}}&amp;streamId={{feedly.categoryId}}&amp;delay=60000"/>
+			<camel:split>
+            	<camel:simple>body</camel:simple>
+				<camel:log message="${in.body}"/>
+				<!-- camel:process ref="feedlyActuMailProcessor"/ -->
+			</camel:split>
+		</camel:route>
+	</camel:camelContext>
+ 
+</beans>
