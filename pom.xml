@@ -35,7 +35,7 @@
 			<groupId>org.apache.camel</groupId>
 			<artifactId>camel-facebook</artifactId>
 			<version>${camel-version-release}</version>
-		</dependency>
+		</dependency>	
 
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
