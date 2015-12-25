@@ -22,6 +22,15 @@ public class MailProcessor implements Processor {
 	private String sourceId;
 	private String targetEmailAdress;
 	private MailEnricher mailEnricher;
+
+	public MailProcessor(String smtpPropertiesFilePath, String sourceId, String targetEmailAdress) throws IOException {
+		
+		smtpProperties = new Properties();
+		smtpProperties.load(this.getClass().getResourceAsStream(smtpPropertiesFilePath));
+		
+		this.sourceId = sourceId;
+		this.targetEmailAdress = targetEmailAdress;
+	}
 	
 	public MailProcessor(String smtpPropertiesFilePath, String sourceId, String targetEmailAdress, MailEnricher mailEnricher) throws IOException {
 		
@@ -60,8 +69,12 @@ public class MailProcessor implements Processor {
 		// set target
 		message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(targetEmailAdress));
 
-		// custom enrich subject and text properties
-		mailEnricher.enrichMessageFromExchange(message, exchange);
+		// custom enrich subject and text properties 
+		if (mailEnricher != null) mailEnricher.enrichMessageFromExchange(message, exchange);
+		else if (exchange.getIn().getBody() != null) {
+			message.setSubject(exchange.getIn().getBody().toString());
+			message.setContent(exchange.getIn().getBody().toString(), "text/html; charset=utf-8");
+		}
 
 		Transport.send(message);
 	}

@@ -7,8 +7,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 
 	<properties>
-		<camel-version-snapshot>2.16-SNAPSHOT</camel-version-snapshot>
-		<camel-version-release>2.15.1</camel-version-release>
+		<camel-version-release>2.16.1</camel-version-release>
 	</properties>
 
 	<dependencies>
@@ -16,19 +15,19 @@
 		<dependency>
 			<groupId>org.apache.camel</groupId>
 			<artifactId>camel-core</artifactId>
-			<version>${camel-version-snapshot}</version>
+			<version>${camel-version-release}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.apache.camel</groupId>
 			<artifactId>camel-spring</artifactId>
-			<version>${camel-version-snapshot}</version>
+			<version>${camel-version-release}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.apache.camel</groupId>
 			<artifactId>camel-twitter</artifactId>
-			<version>${camel-version-snapshot}</version>
+			<version>${camel-version-release}</version>
 		</dependency>
 
 		<dependency>

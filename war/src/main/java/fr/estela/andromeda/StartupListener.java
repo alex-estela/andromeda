@@ -10,7 +10,7 @@ public class StartupListener implements ServletContextListener {
 
 	public void contextInitialized(ServletContextEvent sce) {
 		try {
-			// TODO
+			fr.estela.andromeda.Main.main(null);
 		} 
 		catch (Exception e) {
 			e.printStackTrace();
