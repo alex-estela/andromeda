@@ -45,7 +45,7 @@
 
 	<camel:camelContext>
 		<camel:route>
-			<camel:from uri="feedly://streams/contents?authorizationKey={{feedly.authorizationKey}}&amp;streamId={{feedly.categoryId.actu}}&amp;delay=60000"/>
+			<camel:from uri="feedly://streams/contents?authorizationKey={{feedly.authorizationKey}}&amp;streamId={{feedly.categoryId.actu}}&amp;delay=900000"/>
 			<camel:split>
             	<camel:simple>body</camel:simple>
 				<camel:log message="${in.body}"/>
@@ -53,7 +53,7 @@
 			</camel:split>
 		</camel:route>
 		<camel:route>
-			<camel:from uri="feedly://streams/contents?authorizationKey={{feedly.authorizationKey}}&amp;streamId={{feedly.categoryId.tech}}&amp;delay=60000"/>
+			<camel:from uri="feedly://streams/contents?authorizationKey={{feedly.authorizationKey}}&amp;streamId={{feedly.categoryId.tech}}&amp;delay=900000"/>
 			<camel:split>
             	<camel:simple>body</camel:simple>
 				<camel:log message="${in.body}"/>
